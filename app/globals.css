@@ -71,9 +71,12 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply dark border-border;
+  }
+  html {
+    @apply h-full;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply h-full bg-background text-foreground;
   }
 }
