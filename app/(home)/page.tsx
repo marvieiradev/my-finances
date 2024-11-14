@@ -13,6 +13,9 @@ interface HomeProps {
     month: string;
   };
 }
+
+const date = new Date();
+const atualMonth = date.getMonth() + 1;
 const Home = async ({ searchParams: { month } }: HomeProps) => {
   const { userId } = await auth();
   if (!userId) {
@@ -21,7 +24,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
 
   const monthIsInvalid = !month || !isMatch(month, "MM");
   if (monthIsInvalid) {
-    redirect("?month=01");
+    redirect(`?month=${atualMonth}`);
   }
 
   const dashboard = await getDashboard(month);
