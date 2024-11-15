@@ -16,8 +16,8 @@ const LoginPage = async () => {
         <Image
           src="/logo.svg"
           alt="My Finances"
-          width={173}
-          height={39}
+          width={175}
+          height={41}
           className="mb-8"
         />
         <h1 className="mb-3 text-4xl font-bold">Bem-vindo</h1>
@@ -35,7 +35,7 @@ const LoginPage = async () => {
       </div>
       <div className="relative h-full w-full">
         <Image
-          src="/login.png"
+          src={`/login_img${Math.floor(Math.random() * 4)}.png`}
           alt="Faça login"
           fill
           className="object-cover"
