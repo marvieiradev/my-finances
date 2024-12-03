@@ -67,7 +67,9 @@ const LastTransactions = ({ lastTransactions }: LastTransactionsProps) => {
             </div>
             <p className={`text-sm font-bold ${getAmountColor(transaction)}`}>
               {getAmountPrefix(transaction)}
-              {formatCurrency(Number(transaction.amount))}
+              {formatCurrency(
+                Number(JSON.parse(JSON.stringify(transaction.amount))),
+              )}
             </p>
           </div>
         ))}
