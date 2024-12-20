@@ -26,7 +26,7 @@ const LastTransactions = ({ lastTransactions }: LastTransactionsProps) => {
     if (transaction.type === TransactionType.DEPOSIT) {
       return "+";
     }
-    return "-";
+    return "−";
   };
 
   return (
@@ -43,7 +43,7 @@ const LastTransactions = ({ lastTransactions }: LastTransactionsProps) => {
             key={transaction.id}
             className="flex items-center justify-between"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-start gap-3 lg:items-center">
               <div className="rounded-lg bg-white bg-opacity-[3%] p-2">
                 <Image
                   src={
@@ -56,13 +56,24 @@ const LastTransactions = ({ lastTransactions }: LastTransactionsProps) => {
               </div>
               <div>
                 <p className="text-sm font-bold">{transaction.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {new Date(transaction.date).toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
+                <div className="lg:hidden">
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(transaction.date).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "2-digit",
+                    })}
+                  </p>
+                </div>
+                <div className="hidden lg:flex">
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(transaction.date).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
               </div>
             </div>
             <p className={`text-sm font-bold ${getAmountColor(transaction)}`}>
