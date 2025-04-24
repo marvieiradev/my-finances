@@ -41,6 +41,7 @@ const TimeSelect = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const month = searchParams.get("month");
+
   const handleMonthChange = (month: string) => {
     push(`/?month=${month}`);
   };
@@ -55,7 +56,7 @@ const TimeSelect = () => {
       <SelectContent>
         {MONTH_OPTIONS.map((option) => (
           <SelectItem key={option.value} value={option.value}>
-            {option.label}
+            {`${option.label}`}
           </SelectItem>
         ))}
       </SelectContent>
