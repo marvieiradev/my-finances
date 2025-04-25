@@ -25,11 +25,23 @@ interface AiReportButtonProps {
 const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
   const [report, setReport] = useState<string | null>(null);
   const [reportIsLoading, setReportIsLoading] = useState(false);
+  const date = new Date();
+
+  function triggerDownload(stringContent = "", filename = "download.blob") {
+    const blob = new Blob([stringContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   const handleGenerateReportClick = async () => {
     try {
       setReportIsLoading(true);
       const aiReport = await generateAiReport({ month });
-      console.log({ aiReport });
       setReport(aiReport);
     } catch (error) {
       console.error(error);
@@ -68,12 +80,25 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
               <DialogClose asChild>
                 <Button variant="ghost">Cancelar</Button>
               </DialogClose>
+              {!reportIsLoading && (
+                <Button
+                  onClick={() =>
+                    triggerDownload(
+                      `${report}`,
+                      `ai-report-${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}.txt`,
+                    )
+                  }
+                >
+                  Salvar
+                </Button>
+              )}
+
               <Button
                 onClick={handleGenerateReportClick}
                 disabled={reportIsLoading}
               >
                 {reportIsLoading && <Loader2Icon className="animate-spin" />}
-                Gerar relatório
+                {report ? "Refazer relatório" : "Gerar relatório"}
               </Button>
             </DialogFooter>
           </>
