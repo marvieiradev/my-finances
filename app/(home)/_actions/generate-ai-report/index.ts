@@ -10,6 +10,11 @@ const DUMMY_REPORT =
 
 export const generateAiReport = async ({ month }: GenerateAiReportSchema) => {
   generateAiReportSchema.parse({ month });
+  const date = new Date();
+  const atualYear = date.getFullYear();
+  const atualMonth = date.getMonth() + 1;
+  let query = `${atualYear}-${month}`;
+
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
@@ -26,12 +31,16 @@ export const generateAiReport = async ({ month }: GenerateAiReportSchema) => {
   const openAi = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
+
+  if (Number(month) > Number(atualMonth)) {
+    query = `${atualYear - 1}-${month}`;
+  }
   // pegar as transações do mês recebido
   const transactions = await db.transaction.findMany({
     where: {
       date: {
-        gte: new Date(`2024-${month}-01`),
-        lt: new Date(`2024-${month}-31`),
+        gte: new Date(`${query}-01`),
+        lt: new Date(`${query}-31`),
       },
     },
   });
