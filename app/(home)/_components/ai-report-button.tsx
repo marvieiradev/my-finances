@@ -27,8 +27,6 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
   const [reportIsLoading, setReportIsLoading] = useState(false);
   const date = new Date();
 
-  const reportExists = localStorage.getItem("report");
-
   function triggerDownload(stringContent = "", filename = "download.blob") {
     const blob = new Blob([stringContent], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -53,17 +51,11 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
     }
   };
 
-  console.log(reportExists);
-  console.log(report);
   return (
     <Dialog
       onOpenChange={(open) => {
         if (!open) {
-          if (reportExists) {
-            setReport(reportExists);
-          } else {
-            setReport(null);
-          }
+          setReport(null);
         }
       }}
     >
