@@ -32,7 +32,6 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
       setReportIsLoading(true);
       const aiReport = await generateAiReport({ month });
       setReport(aiReport);
-      localStorage.setItem("report", aiReport!);
     } catch (error) {
       console.error(error);
     } finally {
