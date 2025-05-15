@@ -27,17 +27,6 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
   const [reportIsLoading, setReportIsLoading] = useState(false);
   const date = new Date();
 
-  function triggerDownload(stringContent = "", filename = "download.blob") {
-    const blob = new Blob([stringContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
   const handleGenerateReportClick = async () => {
     try {
       setReportIsLoading(true);
@@ -50,6 +39,17 @@ const AiReportsButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
       setReportIsLoading(false);
     }
   };
+
+  function triggerDownload(stringContent = "", filename = "download.blob") {
+    const blob = new Blob([stringContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <Dialog
